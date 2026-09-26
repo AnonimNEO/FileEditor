@@ -1,6 +1,6 @@
 # Редактор Файлов - NEO Organization
 
-<img src="img/FE_Icon.png" height="225" width="225"><img src="img/NEO_Organization.jpg"><img src="img/Отдел_К.jpg"><img src="img/GPLv3.png" height="225" width="225">
+<img src="img/FE_Icon.png" height="225" width="225"><img src="img/NEO_Organization.jpg"><img src="img/Отдел_К.jpg"><img src="img/GPLv3.png" height="225" width="300">
 
 ***Редактор Файлов*** - Это **простой** и **лёгкий** блокнот на **Python**.
 
