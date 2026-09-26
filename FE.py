@@ -10,18 +10,14 @@
 
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog
-try:
-    from OF import Logger
-    logger = Logger()
-except:
-    from loguru import logger
+from loguru import logger
 import os
 
 from languages import l
 from AES import AES
 from OF import apply_global_theme, create_menubar
 
-FILE_EDITOR_VERSION = "0.4.3 Beta"
+FILE_EDITOR_VERSION = "0.4.4 Beta"
 
 class FileEditor:
     def __init__(self, FE_GUI):
