@@ -5,7 +5,13 @@
 ***Редактор Файлов*** - Это **простой** и **лёгкий** блокнот на **Python**.
 
 > [!Note]
+> Want to help translate the program or documentation? Pull requests and the email neo.organization.official@gmail.com are open!
+
+> [!Note]
 > Хотите помочь с переводом программы или документации? PullRequest и почта neo.organization.official@gmail.com открыты!
+
+> [!Note]
+> Хочете допомогти з перекладом програми чи документації? PullRequest та пошта neo.organization.official@gmail.com відкриті!
 
 ### Функционал Редактора Файлов:
 - Редактирование текстовый файлов *(удивительно)*
