@@ -15,7 +15,8 @@ import os
 
 from languages import l
 from AES import AES
-from OF import apply_global_theme, create_menubar
+from OF import apply_global_theme, create_menubar, update_widget_theme
+
 
 FILE_EDITOR_VERSION = "0.4.4 Beta"
 
@@ -469,9 +470,9 @@ class FileEditor:
 
 
 
-def FE(file_path=None, current_theme=False):
+def FE(file_path=None, current_theme=None):
     try:
-        if not current_theme:
+        if current_theme is None:
             from config import THEME, DEFAULT_THEME
             current_theme = THEME[DEFAULT_THEME]
         FE_GUI = tk.Tk()
@@ -480,7 +481,7 @@ def FE(file_path=None, current_theme=False):
         if file_path:
             editor.load_file(file_path)
         FE_GUI.mainloop()
-    except:
+    except Exception as e:
         logger.exception(l("fe_critical_error"))
 
 if __name__ == "__main__":

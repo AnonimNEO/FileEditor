@@ -23,7 +23,64 @@ ORANGE_THEME =  {"bg": "gray", "fg": "white", "bbg": "darkorange", "bfg": "white
 LIME_THEME =  {"bg": "green", "fg": "white", "bbg": "green", "bfg": "white", "abg": "lime", "afg": "black", "lbg":  "green", "lfg": "lime", "stb": "green", "tbg": "lime", "tfg": "black"}
 
 # Кортеж тем
-THEME = {"black": BLACK_THEME, "dark": DARK_THEME, "white": WHITE_THEME, "red": RED_THEME, "gray": GRAY_THEME, "orange": ORANGE_THEME, "lime": LIME_THEME}
+THEME = {
+    "dark": {
+        "bg": "#1e1e1e",
+        "fg": "#ffffff",
+        "bbg": "#0d47a1",  # button background
+        "bfg": "#ffffff",  # button foreground
+        "abg": "#0d47a1",  # active background
+        "afg": "#ffffff",  # active foreground
+    },
+    "white": {
+        "bg": "#ffffff",
+        "fg": "#000000",
+        "bbg": "#e0e0e0",
+        "bfg": "#000000",
+        "abg": "#d0d0d0",
+        "afg": "#000000",
+    },
+    "red": {
+        "bg": "#2b0000",
+        "fg": "#ff4444",
+        "bbg": "#b71c1c",
+        "bfg": "#ffffff",
+        "abg": "#c41c00",
+        "afg": "#ffffff",
+    },
+    "lime": {
+        "bg": "#001a00",
+        "fg": "#00ff00",
+        "bbg": "#2e7d32",
+        "bfg": "#ffffff",
+        "abg": "#388e3c",
+        "afg": "#ffffff",
+    },
+    "black": {
+        "bg": "#000000",
+        "fg": "#ffffff",
+        "bbg": "#333333",
+        "bfg": "#ffffff",
+        "abg": "#555555",
+        "afg": "#ffffff",
+    },
+    "gray": {
+        "bg": "#424242",
+        "fg": "#e0e0e0",
+        "bbg": "#616161",
+        "bfg": "#ffffff",
+        "abg": "#757575",
+        "afg": "#ffffff",
+    },
+    "orange": {
+        "bg": "#331a00",
+        "fg": "#ffb366",
+        "bbg": "#e65100",
+        "bfg": "#ffffff",
+        "abg": "#ff6d00",
+        "afg": "#ffffff",
+    },
+}
 
 # Тема по умолчанию
 DEFAULT_THEME = "dark"

@@ -122,9 +122,36 @@ def apply_global_theme(window, current_theme):
 
 
 def restart_gui_for_theme(GUI, user_theme):
-    #global current_theme
     current_theme = THEME[user_theme]
     apply_global_theme(GUI, current_theme)
+    
+    # Обновляем опции окна явно
+    GUI.option_add("*Background", current_theme["bg"], "widgetDefault")
+    GUI.option_add("*Foreground", current_theme["fg"], "widgetDefault")
+    
+    # Принудительно обновляем все виджеты
+    for widget in GUI.winfo_children():
+        update_widget_theme(widget, current_theme)
+
+def update_widget_theme(widget, theme):
+    """Рекурсивно обновляет тему для всех виджетов"""
+    if isinstance(widget, tk.Text):
+        widget.config(bg=theme["bg"], fg=theme["fg"], 
+                     insertbackground=theme["fg"],
+                     selectbackground=theme["abg"], 
+                     selectforeground=theme["afg"])
+    elif isinstance(widget, tk.Frame):
+        widget.config(bg=theme["bg"])
+    elif isinstance(widget, tk.Label):
+        widget.config(bg=theme["bg"], fg=theme["fg"])
+    elif isinstance(widget, tk.Button):
+        widget.config(bg=theme["bbg"], fg=theme["bfg"])
+    elif isinstance(widget, tk.Checkbutton):
+        widget.config(bg=theme["bg"], fg=theme["fg"], selectcolor=theme["abg"])
+    
+    # Рекурсия для дочерних виджетов
+    for child in widget.winfo_children():
+        update_widget_theme(child, theme)
 
 
 
