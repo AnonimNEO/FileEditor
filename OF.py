@@ -122,9 +122,49 @@ def apply_global_theme(window, current_theme):
 
 
 def restart_gui_for_theme(GUI, user_theme):
-    #global current_theme
+    """Рекурсивно обновляет тему для всех виджетов в окне"""
     current_theme = THEME[user_theme]
     apply_global_theme(GUI, current_theme)
+    
+    # Рекурсивно обновляем все виджеты в окне
+    def update_widget_theme(widget):
+        try:
+            # Обновляем стандартные tk-виджеты
+            if isinstance(widget, tk.Text):
+                widget.config(bg=current_theme["bg"], fg=current_theme["fg"], 
+                            insertbackground=current_theme["fg"],
+                            selectbackground=current_theme["abg"],
+                            selectforeground=current_theme["afg"])
+            elif isinstance(widget, tk.Button):
+                widget.config(bg=current_theme["bbg"], fg=current_theme["bfg"],
+                            activebackground=current_theme["abg"],
+                            activeforeground=current_theme["afg"])
+            elif isinstance(widget, tk.Checkbutton):
+                widget.config(bg=current_theme["bg"], fg=current_theme["fg"],
+                            activebackground=current_theme["abg"],
+                            activeforeground=current_theme["afg"],
+                            selectcolor=current_theme["abg"])
+            elif isinstance(widget, (tk.Frame, tk.Label, tk.Entry)):
+                widget.config(bg=current_theme["bg"], fg=current_theme["fg"])
+            elif isinstance(widget, tk.Menu):
+                widget.config(bg=current_theme["bbg"], fg=current_theme["bfg"],
+                            activebackground=current_theme["abg"],
+                            activeforeground=current_theme["afg"])
+        except:
+            pass
+        
+        # Обновляем дочерние виджеты
+        try:
+            for child in widget.winfo_children():
+                update_widget_theme(child)
+        except:
+            pass
+    
+    # Запускаем рекурсивное обновление
+    update_widget_theme(GUI)
+    
+    # Обновляем главное окно
+    GUI.config(bg=current_theme["bg"])
 
 
 
