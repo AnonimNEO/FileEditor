@@ -585,8 +585,22 @@ def create_menubar(GUI, RUN_IN_RECOVERY, component_func=None, component_func2=No
 
     theme_menu = Menu(menubar, tearoff=0)
     themes = [("dark", "dark"), ("white", "white"), ("red", "red"), ("green", "lime"), ("contrast", "black"), ("gray", "gray"), ("orange", "orange")]
+    # Переменная хранит текущую тему
+    GUI._current_theme = tk.StringVar(
+        master=GUI,
+        value="dark"
+    )
+
     for label, theme_name in themes:
-        theme_menu.add_checkbutton(label=l(label), command=lambda tn=theme_name: restart_gui_for_theme(GUI, tn))
+        theme_menu.add_radiobutton(
+            label=l(label),
+            variable=GUI._current_theme,
+            value=theme_name,
+            command=lambda: restart_gui_for_theme(
+                GUI,
+                GUI._current_theme.get()
+            )
+        )
     menubar.add_cascade(label=l("themes"), menu=theme_menu)
 
     # Переменные состояния
