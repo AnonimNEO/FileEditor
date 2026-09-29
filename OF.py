@@ -126,32 +126,36 @@ def restart_gui_for_theme(GUI, user_theme):
     current_theme = THEME[user_theme]
     apply_global_theme(GUI, current_theme)
     
-    # Рекурсивно обновляем все виджеты в окне
+     # Обновляем стандартные tk-виджеты
     def update_widget_theme(widget):
         try:
-            # Обновляем стандартные tk-виджеты
+            # Текстовое поле: фон, текст, курсор, выделение
             if isinstance(widget, tk.Text):
                 widget.config(bg=current_theme["bg"], fg=current_theme["fg"], 
                             insertbackground=current_theme["fg"],
                             selectbackground=current_theme["abg"],
                             selectforeground=current_theme["afg"])
+            # Кнопка: обычный вид и при наведении
             elif isinstance(widget, tk.Button):
                 widget.config(bg=current_theme["bbg"], fg=current_theme["bfg"],
                             activebackground=current_theme["abg"],
                             activeforeground=current_theme["afg"])
+            # Чекбокс: фон, текст, активное состояние, галочка
             elif isinstance(widget, tk.Checkbutton):
                 widget.config(bg=current_theme["bg"], fg=current_theme["fg"],
                             activebackground=current_theme["abg"],
                             activeforeground=current_theme["afg"],
                             selectcolor=current_theme["abg"])
+            # Frame/Label/Entry: только фон и текст
             elif isinstance(widget, (tk.Frame, tk.Label, tk.Entry)):
                 widget.config(bg=current_theme["bg"], fg=current_theme["fg"])
+            # Меню: фон и текст, активное состояние
             elif isinstance(widget, tk.Menu):
                 widget.config(bg=current_theme["bbg"], fg=current_theme["bfg"],
                             activebackground=current_theme["abg"],
                             activeforeground=current_theme["afg"])
         except:
-            pass
+            pass # Пропускаем если ошибка
         
         # Обновляем дочерние виджеты
         try:
