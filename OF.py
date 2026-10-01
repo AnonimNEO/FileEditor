@@ -15,16 +15,14 @@ from tkinter import ttk, Menu
 from languages import l
 from config import THEME
 
-
 OTHER_FUNCTION_VERSION = "0.14.9 Beta"
 
 
 def apply_global_theme(window, current_theme):
     """
-    Применяет тему к окну и ttk-виджетам.
-
+    Применяет тему к окну и всем виджетам (ttk и обычные tkinter).
+    
     current_theme должен содержать ключи:
-
         bg  — основной фон
         fg  — основной цвет текста
         abg — фон активного или выбранного элемента
@@ -32,24 +30,26 @@ def apply_global_theme(window, current_theme):
         bbg — фон кнопок и заголовков
         bfg — цвет текста кнопок и заголовков
     """
-
+    
     style = ttk.Style(window)
-
+    
     try:
         style.theme_use("clam")
     except tk.TclError:
         pass
-
+    
     bg = current_theme["bg"]
     fg = current_theme["fg"]
     active_bg = current_theme["abg"]
     active_fg = current_theme["afg"]
     button_bg = current_theme["bbg"]
     button_fg = current_theme["bfg"]
-
+    
     # Фон основного окна
     window.configure(background=bg)
-
+    
+    # === НАСТРОЙКА СТИЛЕЙ TTK-ВИДЖЕТОВ ===
+    
     # Общий стиль ttk
     style.configure(
         ".",
@@ -63,33 +63,26 @@ def apply_global_theme(window, current_theme):
         selectbackground=active_bg,
         selectforeground=active_fg,
     )
-
+    
     # Рамки
-    style.configure(
-        "TFrame",
-        background=bg,
-    )
-
+    style.configure("TFrame", background=bg)
+    
     style.configure(
         "TLabelframe",
         background=bg,
         foreground=fg,
         bordercolor=button_bg,
     )
-
+    
     style.configure(
         "TLabelframe.Label",
         background=bg,
         foreground=fg,
     )
-
+    
     # Надписи
-    style.configure(
-        "TLabel",
-        background=bg,
-        foreground=fg,
-    )
-
+    style.configure("TLabel", background=bg, foreground=fg)
+    
     # Кнопки
     style.configure(
         "TButton",
@@ -100,25 +93,14 @@ def apply_global_theme(window, current_theme):
         darkcolor=button_bg,
         padding=(10, 5),
     )
-
+    
     style.map(
         "TButton",
-        background=[
-            ("pressed", active_bg),
-            ("active", active_bg),
-            ("disabled", bg),
-        ],
-        foreground=[
-            ("pressed", active_fg),
-            ("active", active_fg),
-            ("disabled", button_fg),
-        ],
-        bordercolor=[
-            ("active", active_bg),
-            ("pressed", active_bg),
-        ],
+        background=[("pressed", active_bg), ("active", active_bg), ("disabled", bg)],
+        foreground=[("pressed", active_fg), ("active", active_fg), ("disabled", button_fg)],
+        bordercolor=[("active", active_bg), ("pressed", active_bg)],
     )
-
+    
     # Поля ввода ttk.Entry
     style.configure(
         "TEntry",
@@ -127,21 +109,14 @@ def apply_global_theme(window, current_theme):
         bordercolor=button_bg,
         padding=5,
     )
-
+    
     style.map(
         "TEntry",
-        fieldbackground=[
-            ("focus", bg),
-            ("disabled", button_bg),
-        ],
-        foreground=[
-            ("disabled", button_fg),
-        ],
-        bordercolor=[
-            ("focus", active_bg),
-        ],
+        fieldbackground=[("focus", bg), ("disabled", button_bg)],
+        foreground=[("disabled", button_fg)],
+        bordercolor=[("focus", active_bg)],
     )
-
+    
     # Выпадающий список
     style.configure(
         "TCombobox",
@@ -152,28 +127,16 @@ def apply_global_theme(window, current_theme):
         arrowcolor=fg,
         padding=5,
     )
-
+    
     style.map(
         "TCombobox",
-        fieldbackground=[
-            ("readonly", bg),
-            ("focus", bg),
-        ],
-        foreground=[
-            ("readonly", fg),
-            ("focus", fg),
-        ],
-        selectbackground=[
-            ("focus", active_bg),
-        ],
-        selectforeground=[
-            ("focus", active_fg),
-        ],
-        arrowcolor=[
-            ("active", active_fg),
-        ],
+        fieldbackground=[("readonly", bg), ("focus", bg)],
+        foreground=[("readonly", fg), ("focus", fg)],
+        selectbackground=[("focus", active_bg)],
+        selectforeground=[("focus", active_fg)],
+        arrowcolor=[("active", active_fg)],
     )
-
+    
     # Флажки
     style.configure(
         "TCheckbutton",
@@ -181,23 +144,14 @@ def apply_global_theme(window, current_theme):
         foreground=fg,
         focuscolor=bg,
     )
-
+    
     style.map(
         "TCheckbutton",
-        background=[
-            ("active", bg),
-            ("selected", bg),
-        ],
-        foreground=[
-            ("active", active_fg),
-            ("selected", fg),
-        ],
-        indicatorcolor=[
-            ("selected", active_bg),
-            ("active", active_bg),
-        ],
+        background=[("active", bg), ("selected", bg)],
+        foreground=[("active", active_fg), ("selected", fg)],
+        indicatorcolor=[("selected", active_bg), ("active", active_bg)],
     )
-
+    
     # Переключатели
     style.configure(
         "TRadiobutton",
@@ -205,23 +159,14 @@ def apply_global_theme(window, current_theme):
         foreground=fg,
         focuscolor=bg,
     )
-
+    
     style.map(
         "TRadiobutton",
-        background=[
-            ("active", bg),
-            ("selected", bg),
-        ],
-        foreground=[
-            ("active", active_fg),
-            ("selected", fg),
-        ],
-        indicatorcolor=[
-            ("selected", active_bg),
-            ("active", active_bg),
-        ],
+        background=[("active", bg), ("selected", bg)],
+        foreground=[("active", active_fg), ("selected", fg)],
+        indicatorcolor=[("selected", active_bg), ("active", active_bg)],
     )
-
+    
     # Таблица
     style.configure(
         "Treeview",
@@ -231,17 +176,13 @@ def apply_global_theme(window, current_theme):
         bordercolor=button_bg,
         rowheight=25,
     )
-
+    
     style.map(
         "Treeview",
-        background=[
-            ("selected", active_bg),
-        ],
-        foreground=[
-            ("selected", active_fg),
-        ],
+        background=[("selected", active_bg)],
+        foreground=[("selected", active_fg)],
     )
-
+    
     style.configure(
         "Treeview.Heading",
         background=button_bg,
@@ -251,19 +192,13 @@ def apply_global_theme(window, current_theme):
         padding=(5, 4),
         font=("TkDefaultFont", 10, "bold"),
     )
-
+    
     style.map(
         "Treeview.Heading",
-        background=[
-            ("active", active_bg),
-            ("pressed", active_bg),
-        ],
-        foreground=[
-            ("active", active_fg),
-            ("pressed", active_fg),
-        ],
+        background=[("active", active_bg), ("pressed", active_bg)],
+        foreground=[("active", active_fg), ("pressed", active_fg)],
     )
-
+    
     # Вкладки
     style.configure(
         "TNotebook",
@@ -271,7 +206,7 @@ def apply_global_theme(window, current_theme):
         borderwidth=0,
         tabmargins=(0, 0, 0, 0),
     )
-
+    
     style.configure(
         "TNotebook.Tab",
         background=button_bg,
@@ -279,19 +214,13 @@ def apply_global_theme(window, current_theme):
         bordercolor=button_bg,
         padding=(10, 5),
     )
-
+    
     style.map(
         "TNotebook.Tab",
-        background=[
-            ("selected", active_bg),
-            ("active", active_bg),
-        ],
-        foreground=[
-            ("selected", active_fg),
-            ("active", active_fg),
-        ],
+        background=[("selected", active_bg), ("active", active_bg)],
+        foreground=[("selected", active_fg), ("active", active_fg)],
     )
-
+    
     # Полоса прокрутки
     style.configure(
         "TScrollbar",
@@ -302,19 +231,13 @@ def apply_global_theme(window, current_theme):
         lightcolor=button_bg,
         darkcolor=button_bg,
     )
-
+    
     style.map(
         "TScrollbar",
-        background=[
-            ("active", active_bg),
-            ("pressed", active_bg),
-        ],
-        arrowcolor=[
-            ("active", active_fg),
-            ("pressed", active_fg),
-        ],
+        background=[("active", active_bg), ("pressed", active_bg)],
+        arrowcolor=[("active", active_fg), ("pressed", active_fg)],
     )
-
+    
     # Прогресс-бар
     style.configure(
         "TProgressbar",
@@ -324,7 +247,7 @@ def apply_global_theme(window, current_theme):
         lightcolor=active_bg,
         darkcolor=active_bg,
     )
-
+    
     # Ползунок
     style.configure(
         "TScale",
@@ -332,13 +255,10 @@ def apply_global_theme(window, current_theme):
         troughcolor=button_bg,
         bordercolor=button_bg,
     )
-
+    
     # Разделитель
-    style.configure(
-        "TSeparator",
-        background=button_bg,
-    )
-
+    style.configure("TSeparator", background=button_bg)
+    
     # Spinbox
     style.configure(
         "TSpinbox",
@@ -347,83 +267,114 @@ def apply_global_theme(window, current_theme):
         bordercolor=button_bg,
         arrowcolor=fg,
     )
-
+    
     style.map(
         "TSpinbox",
-        fieldbackground=[
-            ("focus", bg),
-        ],
-        bordercolor=[
-            ("focus", active_bg),
-        ],
+        fieldbackground=[("focus", bg)],
+        bordercolor=[("focus", active_bg)],
     )
-
-
-def update_menu(menu, theme):
-    """
-    Обновляет цвета обычного tkinter.Menu.
-    """
-
-    try:
-        menu.configure(
-            background=theme["bg"],
-            foreground=theme["fg"],
-            activebackground=theme["abg"],
-            activeforeground=theme["afg"],
-        )
-    except tk.TclError:
-        return
-
+    
+    # === ОБНОВЛЕНИЕ ВСЕХ СУЩЕСТВУЮЩИХ TKINTER-ВИДЖЕТОВ ===
+    
+    def _update_widget_recursive(widget):
+        """Рекурсивно обновляет все обычные tkinter-виджеты."""
+        
+        widget_class = widget.winfo_class()
+        
+        try:
+            # Окна и фреймы
+            if widget_class in ("Tk", "Toplevel", "Frame", "Labelframe"):
+                widget.configure(background=bg)
+            
+            # Надписи
+            elif widget_class == "Label":
+                widget.configure(background=bg, foreground=fg)
+            
+            # Текстовые поля
+            elif widget_class == "Text":
+                widget.configure(
+                    background=bg,
+                    foreground=fg,
+                    insertbackground=fg,
+                    selectbackground=active_bg,
+                    selectforeground=active_fg,
+                )
+            
+            # Поля ввода
+            elif widget_class == "Entry":
+                widget.configure(
+                    background=bg,
+                    foreground=fg,
+                    insertbackground=fg,
+                    selectbackground=active_bg,
+                    selectforeground=active_fg,
+                )
+            
+            # Кнопки
+            elif widget_class == "Button":
+                widget.configure(
+                    background=button_bg,
+                    foreground=button_fg,
+                    activebackground=active_bg,
+                    activeforeground=active_fg,
+                )
+            
+            # Чекбоксы
+            elif widget_class == "Checkbutton":
+                widget.configure(
+                    background=bg,
+                    foreground=fg,
+                    activebackground=active_bg,
+                    activeforeground=active_fg,
+                    selectcolor=active_bg,
+                )
+            
+            # Радиокнопки
+            elif widget_class == "Radiobutton":
+                widget.configure(
+                    background=bg,
+                    foreground=fg,
+                    activebackground=active_bg,
+                    activeforeground=active_fg,
+                    selectcolor=active_bg,
+                )
+            
+            # Полосы прокрутки
+            elif widget_class == "Scrollbar":
+                widget.configure(
+                    background=button_bg,
+                    troughcolor=bg,
+                    activebackground=active_bg,
+                )
+            
+            # Меню
+            elif widget_class == "Menu":
+                widget.configure(
+                    background=button_bg,
+                    foreground=button_fg,
+                    activebackground=active_bg,
+                    activeforeground=active_fg,
+                )
+        
+        except tk.TclError:
+            pass
+        
+        # Рекурсивно обновляем дочерние виджеты
+        try:
+            for child in widget.winfo_children():
+                _update_widget_recursive(child)
+        except tk.TclError:
+            pass
+    
+    # Запускаем рекурсивное обновление со всем окном
+    _update_widget_recursive(window)
 
 
 def restart_gui_for_theme(GUI, user_theme):
-    """Рекурсивно обновляет тему для всех виджетов в окне"""
+    """Применяет выбранную тему к GUI."""
+    
     current_theme = THEME[user_theme]
     apply_global_theme(GUI, current_theme)
-    
-     # Обновляем стандартные tk-виджеты
-    def update_widget_theme(widget):
-        try:
-            # Текстовое поле: фон, текст, курсор, выделение
-            if isinstance(widget, tk.Text):
-                widget.config(bg=current_theme["bg"], fg=current_theme["fg"], 
-                            insertbackground=current_theme["fg"],
-                            selectbackground=current_theme["abg"],
-                            selectforeground=current_theme["afg"])
-            # Кнопка: обычный вид и при наведении
-            elif isinstance(widget, tk.Button):
-                widget.config(bg=current_theme["bbg"], fg=current_theme["bfg"],
-                            activebackground=current_theme["abg"],
-                            activeforeground=current_theme["afg"])
-            # Чекбокс: фон, текст, активное состояние, галочка
-            elif isinstance(widget, tk.Checkbutton):
-                widget.config(bg=current_theme["bg"], fg=current_theme["fg"],
-                            activebackground=current_theme["abg"],
-                            activeforeground=current_theme["afg"],
-                            selectcolor=current_theme["abg"])
-            # Frame/Label/Entry: только фон и текст
-            elif isinstance(widget, (tk.Frame, tk.Label, tk.Entry)):
-                widget.config(bg=current_theme["bg"], fg=current_theme["fg"])
-            # Меню: фон и текст, активное состояние
-            elif isinstance(widget, tk.Menu):
-                widget.config(bg=current_theme["bbg"], fg=current_theme["bfg"],
-                            activebackground=current_theme["abg"],
-                            activeforeground=current_theme["afg"])
-        except:
-            pass # Пропускаем если ошибка
-        
-        # Обновляем дочерние виджеты
-        try:
-            for child in widget.winfo_children():
-                update_widget_theme(child)
-        except:
-            pass
-    
-    # Запускаем рекурсивное обновление
-    update_widget_theme(GUI)
-    
-    # Обновляем главное окно
-    GUI.config(bg=current_theme["bg"])
 
 def update_existing_widgets(widget, theme):
     """
