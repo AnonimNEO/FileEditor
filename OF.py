@@ -273,105 +273,6 @@ def apply_global_theme(window, current_theme):
         fieldbackground=[("focus", bg)],
         bordercolor=[("focus", active_bg)],
     )
-    
-    # === ОБНОВЛЕНИЕ ВСЕХ СУЩЕСТВУЮЩИХ TKINTER-ВИДЖЕТОВ ===
-    
-<<<<<<< HEAD
-    
-=======
-    def _update_widget_recursive(widget):
-        """Рекурсивно обновляет все обычные tkinter-виджеты."""
-        
-        widget_class = widget.winfo_class()
-        
-        try:
-            # Окна и фреймы
-            if widget_class in ("Tk", "Toplevel", "Frame", "Labelframe"):
-                widget.configure(background=bg)
-            
-            # Надписи
-            elif widget_class == "Label":
-                widget.configure(background=bg, foreground=fg)
-            
-            # Текстовые поля
-            elif widget_class == "Text":
-                widget.configure(
-                    background=bg,
-                    foreground=fg,
-                    insertbackground=fg,
-                    selectbackground=active_bg,
-                    selectforeground=active_fg,
-                )
-            
-            # Поля ввода
-            elif widget_class == "Entry":
-                widget.configure(
-                    background=bg,
-                    foreground=fg,
-                    insertbackground=fg,
-                    selectbackground=active_bg,
-                    selectforeground=active_fg,
-                )
-            
-            # Кнопки
-            elif widget_class == "Button":
-                widget.configure(
-                    background=button_bg,
-                    foreground=button_fg,
-                    activebackground=active_bg,
-                    activeforeground=active_fg,
-                )
-            
-            # Чекбоксы
-            elif widget_class == "Checkbutton":
-                widget.configure(
-                    background=bg,
-                    foreground=fg,
-                    activebackground=active_bg,
-                    activeforeground=active_fg,
-                    selectcolor=active_bg,
-                )
-            
-            # Радиокнопки
-            elif widget_class == "Radiobutton":
-                widget.configure(
-                    background=bg,
-                    foreground=fg,
-                    activebackground=active_bg,
-                    activeforeground=active_fg,
-                    selectcolor=active_bg,
-                )
-            
-            # Полосы прокрутки
-            elif widget_class == "Scrollbar":
-                widget.configure(
-                    background=button_bg,
-                    troughcolor=bg,
-                    activebackground=active_bg,
-                )
-            
-            # Меню
-            elif widget_class == "Menu":
-                widget.configure(
-                    background=button_bg,
-                    foreground=button_fg,
-                    activebackground=active_bg,
-                    activeforeground=active_fg,
-                )
-        
-        except tk.TclError:
-            pass
-        
-        # Рекурсивно обновляем дочерние виджеты
-        try:
-            for child in widget.winfo_children():
-                _update_widget_recursive(child)
-        except tk.TclError:
-            pass
-    
-    # Запускаем рекурсивное обновление со всем окном
-    _update_widget_recursive(window)
-
 
 def restart_gui_for_theme(GUI, user_theme):
     """Применяет выбранную тему к GUI."""
@@ -379,7 +280,6 @@ def restart_gui_for_theme(GUI, user_theme):
     current_theme = THEME[user_theme]
     apply_global_theme(GUI, current_theme)
 
->>>>>>> d0ebc8ff133d2e8c0cb54490ed95463d830fe6e4
 def update_existing_widgets(widget, theme):
     """
     Рекурсивно обновляет уже созданные стандартные tkinter-виджеты.
