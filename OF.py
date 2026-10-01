@@ -15,7 +15,7 @@ from tkinter import ttk, Menu
 from languages import l
 from config import THEME
 
-#OTHER_FUNCTION_VERSION = "0.14.9 Beta"
+OTHER_FUNCTION_VERSION = "0.14.9 Beta"
 
 
 def apply_global_theme(window, current_theme):
